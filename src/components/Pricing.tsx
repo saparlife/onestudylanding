@@ -1,11 +1,21 @@
+"use client";
+
+import { useState } from "react";
+
 export function Pricing() {
+  const [isYearly, setIsYearly] = useState(true);
+
   const plans = [
     {
-      name: "Эконом",
-      price: "9 900",
-      period: "₸/мес",
+      name: "Старт",
+      monthlyPrice: "19 900",
+      yearlyPrice: "15 900",
+      quarterTotal: "59 700",
+      yearTotal: "190 800",
       description: "Для начинающих",
-      students: "20 учеников/мес",
+      students: "100 учеников/мес",
+      courses: "3 курса",
+      storage: "30 ГБ",
       features: [
         "iOS и Android приложение",
         "Защита от записи экрана",
@@ -16,25 +26,32 @@ export function Pricing() {
     },
     {
       name: "Школа",
-      price: "39 900",
-      period: "₸/мес",
+      monthlyPrice: "49 900",
+      yearlyPrice: "39 900",
+      quarterTotal: "149 700",
+      yearTotal: "478 800",
       description: "Для растущих школ",
-      students: "200 учеников/мес",
+      students: "500 учеников/мес",
+      courses: "10 курсов",
+      storage: "100 ГБ",
       features: [
-        "Всё из Эконом",
+        "Всё из Старт",
         "Приоритетная поддержка",
         "Аналитика",
         "База знаний",
-        "Свой домен",
       ],
       popular: true,
     },
     {
       name: "Академия",
-      price: "99 000",
-      period: "₸/мес",
+      monthlyPrice: "99 000",
+      yearlyPrice: "79 000",
+      quarterTotal: "297 000",
+      yearTotal: "948 000",
       description: "Для крупных школ",
-      students: "1000 учеников/мес",
+      students: "Безлимит учеников",
+      courses: "Безлимит курсов",
+      storage: "300 ГБ",
       features: [
         "Всё из Школа",
         "Личный менеджер",
@@ -54,14 +71,43 @@ export function Pricing() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <p className="text-indigo-400 font-medium mb-4">Тарифы</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
             Простые и прозрачные
           </h2>
-          <p className="text-xl text-gray-400">
-            14 дней бесплатно. Без привязки карты.
+          <p className="text-xl text-gray-400 mb-8">
+            14 дней бесплатно. Минимум 3 месяца.
           </p>
+
+          {/* Toggle */}
+          <div className="inline-flex items-center gap-4 bg-white/5 backdrop-blur border border-white/10 p-1.5 rounded-full">
+            <button
+              onClick={() => setIsYearly(false)}
+              className={`px-6 py-2.5 rounded-full font-medium transition ${
+                !isYearly
+                  ? "bg-white text-gray-900"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Квартал
+            </button>
+            <button
+              onClick={() => setIsYearly(true)}
+              className={`px-6 py-2.5 rounded-full font-medium transition flex items-center gap-2 ${
+                isYearly
+                  ? "bg-white text-gray-900"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              Год
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                isYearly ? "bg-green-500 text-white" : "bg-green-500/20 text-green-400"
+              }`}>
+                -20%
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 items-start">
@@ -92,10 +138,29 @@ export function Pricing() {
                 {/* Price */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold text-white">{plan.price}</span>
-                    <span className="text-gray-400">{plan.period}</span>
+                    <span className="text-4xl font-bold text-white">
+                      {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                    </span>
+                    <span className="text-gray-400">₸/мес</span>
                   </div>
-                  <p className="text-indigo-400 text-sm mt-1">{plan.students}</p>
+                  <p className="text-gray-500 text-sm mt-1">
+                    {isYearly
+                      ? `${plan.yearTotal} ₸ за год`
+                      : `${plan.quarterTotal} ₸ за 3 месяца`
+                    }
+                  </p>
+                </div>
+
+                {/* Limits */}
+                <div className="space-y-2 mb-6 pb-6 border-b border-white/10">
+                  <div className="flex items-center gap-2">
+                    <span className="text-indigo-400 font-medium">{plan.students}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-400 text-sm">
+                    <span>{plan.courses}</span>
+                    <span className="text-white/20">•</span>
+                    <span>{plan.storage}</span>
+                  </div>
                 </div>
 
                 {/* Features */}
@@ -111,8 +176,7 @@ export function Pricing() {
                 </ul>
 
                 {/* CTA */}
-                <a
-                  href="https://app.1study.kz/register"
+                <button
                   className={`block w-full py-3 px-6 rounded-full font-semibold text-center transition ${
                     plan.popular
                       ? "gradient-bg text-white hover:opacity-90"
@@ -120,7 +184,7 @@ export function Pricing() {
                   }`}
                 >
                   Начать бесплатно
-                </a>
+                </button>
               </div>
             </div>
           ))}
