@@ -2,9 +2,11 @@
 
 import { AnimatedCounter } from "./AnimatedCounter";
 import { useLeadModal } from "./LeadModalProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export function Hero() {
   const { openModal } = useLeadModal();
+  const { t } = useLanguage();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden bg-gray-950">
@@ -25,21 +27,19 @@ export function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
           </span>
-          43 онлайн-школы уже с нами
+          {t("hero.badge")}
         </div>
 
         {/* Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-8">
-          Платформа для{" "}
-          <span className="whitespace-nowrap">онлайн-школ</span>
+          {t("hero.title.line1")}
           <br />
-          <span className="gradient-text">с защитой от пиратства</span>
+          <span className="gradient-text">{t("hero.title.line2")}</span>
         </h1>
 
         {/* Subheadline */}
         <p className="text-xl sm:text-2xl text-gray-400 mb-10 leading-relaxed max-w-2xl mx-auto">
-          Мобильное приложение для ваших учеников.
-          <span className="text-white font-medium"> Нельзя сделать скриншот</span> — контент защищён.
+          {t("hero.subtitle")}
         </p>
 
         {/* CTA Buttons */}
@@ -48,7 +48,7 @@ export function Hero() {
             onClick={() => openModal()}
             className="group gradient-bg text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-2xl shadow-indigo-500/25 flex items-center justify-center gap-2"
           >
-            Попробовать 14 дней бесплатно
+            {t("hero.cta")}
             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
@@ -57,7 +57,7 @@ export function Hero() {
             href="#features"
             className="border border-white/20 bg-white/5 backdrop-blur text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition flex items-center justify-center gap-2"
           >
-            Узнать больше
+            {t("hero.learnMore")}
           </a>
         </div>
 
@@ -67,19 +67,19 @@ export function Hero() {
             <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
               <AnimatedCounter end={43} />
             </div>
-            <div className="text-gray-500 text-sm">онлайн-школы</div>
+            <div className="text-gray-500 text-sm">{t("hero.stats.schools")}</div>
           </div>
           <div>
             <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
               <AnimatedCounter end={5000} suffix="+" />
             </div>
-            <div className="text-gray-500 text-sm">учеников</div>
+            <div className="text-gray-500 text-sm">{t("hero.stats.students")}</div>
           </div>
           <div>
             <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
-              <AnimatedCounter end={24} suffix="ч" />
+              <AnimatedCounter end={24} suffix={t("hero.stats.hoursSuffix")} />
             </div>
-            <div className="text-gray-500 text-sm">на запуск</div>
+            <div className="text-gray-500 text-sm">{t("hero.stats.launch")}</div>
           </div>
         </div>
       </div>
