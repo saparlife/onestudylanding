@@ -1,4 +1,10 @@
+"use client";
+
+import { useLeadModal } from "./LeadModalProvider";
+
 export function CTA() {
+  const { openModal } = useLeadModal();
+
   return (
     <section className="py-24 px-4 sm:px-6 bg-gray-950">
       <div className="max-w-5xl mx-auto">
@@ -21,17 +27,19 @@ export function CTA() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://app.1study.kz/register"
+                <button
+                  onClick={() => openModal()}
                   className="group bg-white text-gray-900 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-gray-100 transition flex items-center justify-center gap-2"
                 >
                   Начать бесплатно
                   <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </a>
+                </button>
                 <a
-                  href="https://wa.me/77001234567"
+                  href="https://wa.me/77476899983"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group border-2 border-white/30 text-white px-8 py-4 rounded-2xl font-bold text-lg hover:bg-white/10 transition flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

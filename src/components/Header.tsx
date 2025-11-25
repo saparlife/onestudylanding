@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLeadModal } from "./LeadModalProvider";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const { openModal } = useLeadModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,17 +43,17 @@ export function Header() {
 
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="https://app.1study.kz"
+              href="https://web.1study.kz"
               className="text-gray-300 hover:text-white transition hidden sm:block font-medium"
             >
               Войти
             </a>
-            <a
-              href="#pricing"
+            <button
+              onClick={() => openModal()}
               className="gradient-bg text-white px-4 sm:px-6 py-2.5 rounded-full font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25"
             >
               Начать
-            </a>
+            </button>
           </div>
         </div>
       </div>

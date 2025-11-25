@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useLeadModal } from "./LeadModalProvider";
 
 export function Pricing() {
   const [isYearly, setIsYearly] = useState(true);
+  const { openModal } = useLeadModal();
 
   const plans = [
     {
@@ -177,6 +179,7 @@ export function Pricing() {
 
                 {/* CTA */}
                 <button
+                  onClick={() => openModal(plan.name)}
                   className={`block w-full py-3 px-6 rounded-full font-semibold text-center transition cursor-pointer ${
                     plan.popular
                       ? "gradient-bg text-white hover:opacity-90"
@@ -192,7 +195,7 @@ export function Pricing() {
 
         <p className="text-center text-gray-500 mt-12">
           Нужно больше?{" "}
-          <a href="mailto:hello@1study.kz" className="text-indigo-400 hover:underline">
+          <a href="https://wa.me/77476899983" className="text-indigo-400 hover:underline">
             Напишите нам
           </a>
         </p>

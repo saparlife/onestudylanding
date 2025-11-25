@@ -1,8 +1,11 @@
 "use client";
 
 import { AnimatedCounter } from "./AnimatedCounter";
+import { useLeadModal } from "./LeadModalProvider";
 
 export function Hero() {
+  const { openModal } = useLeadModal();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden bg-gray-950">
       {/* Background decoration */}
@@ -41,15 +44,15 @@ export function Hero() {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-          <a
-            href="#pricing"
+          <button
+            onClick={() => openModal()}
             className="group gradient-bg text-white px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition shadow-2xl shadow-indigo-500/25 flex items-center justify-center gap-2"
           >
             Попробовать 14 дней бесплатно
             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </button>
           <a
             href="#features"
             className="border border-white/20 bg-white/5 backdrop-blur text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white/10 transition flex items-center justify-center gap-2"
