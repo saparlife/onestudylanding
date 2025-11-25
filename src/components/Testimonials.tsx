@@ -149,17 +149,14 @@ export function Testimonials() {
 
                     {/* Author */}
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl relative">
+                        <span>{testimonial.name.charAt(0)}</span>
                         <Image
                           src={testimonial.image}
                           alt={testimonial.name}
                           width={64}
                           height={64}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            // Fallback to initials if image fails
-                            e.currentTarget.style.display = 'none';
-                          }}
+                          className="absolute inset-0 w-full h-full object-cover"
                         />
                       </div>
                       <div className="flex-1">
