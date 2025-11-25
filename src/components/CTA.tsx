@@ -1,6 +1,6 @@
 export function CTA() {
   return (
-    <section className="py-24 px-4 sm:px-6">
+    <section className="py-24 px-4 sm:px-6 bg-gray-950">
       <div className="max-w-5xl mx-auto">
         <div className="relative animated-gradient rounded-[2.5rem] p-1">
           <div className="bg-gray-900 rounded-[2.3rem] p-10 sm:p-16 text-center relative overflow-hidden">
