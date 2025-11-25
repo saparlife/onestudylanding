@@ -1,14 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useLeadModal } from "./LeadModalProvider";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage, Language } from "./LanguageProvider";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { openModal } = useLeadModal();
   const { theme, toggleTheme } = useTheme();
   const { language, setLanguage, t } = useLanguage();
 
@@ -90,21 +88,13 @@ export function Header() {
               )}
             </button>
 
-            {/* Login - Desktop */}
+            {/* Login Button */}
             <a
               href="https://web.1study.kz"
-              className="text-gray-300 hover:text-white transition hidden sm:block font-medium"
+              className="gradient-bg text-white px-4 sm:px-6 py-2.5 rounded-full font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25"
             >
               {t("nav.login")}
             </a>
-
-            {/* CTA Button */}
-            <button
-              onClick={() => openModal()}
-              className="gradient-bg text-white px-4 sm:px-6 py-2.5 rounded-full font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25"
-            >
-              {t("nav.start")}
-            </button>
 
             {/* Mobile menu button */}
             <button
