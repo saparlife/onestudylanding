@@ -23,7 +23,8 @@ export function Hero() {
 
         {/* Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-8">
-          Платформа для онлайн-школ
+          Платформа для{" "}
+          <span className="whitespace-nowrap">онлайн-школ</span>
           <br />
           <span className="gradient-text">с защитой от пиратства</span>
         </h1>
