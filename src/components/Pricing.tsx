@@ -84,7 +84,7 @@ export function Pricing() {
           <div className="inline-flex items-center gap-4 bg-white/5 backdrop-blur border border-white/10 p-1.5 rounded-full">
             <button
               onClick={() => setIsYearly(false)}
-              className={`px-6 py-2.5 rounded-full font-medium transition ${
+              className={`px-6 py-2.5 rounded-full font-medium transition cursor-pointer ${
                 !isYearly
                   ? "bg-white text-gray-900"
                   : "text-gray-400 hover:text-white"
@@ -94,7 +94,7 @@ export function Pricing() {
             </button>
             <button
               onClick={() => setIsYearly(true)}
-              className={`px-6 py-2.5 rounded-full font-medium transition flex items-center gap-2 ${
+              className={`px-6 py-2.5 rounded-full font-medium transition cursor-pointer flex items-center gap-2 ${
                 isYearly
                   ? "bg-white text-gray-900"
                   : "text-gray-400 hover:text-white"
@@ -177,7 +177,7 @@ export function Pricing() {
 
                 {/* CTA */}
                 <button
-                  className={`block w-full py-3 px-6 rounded-full font-semibold text-center transition ${
+                  className={`block w-full py-3 px-6 rounded-full font-semibold text-center transition cursor-pointer ${
                     plan.popular
                       ? "gradient-bg text-white hover:opacity-90"
                       : "bg-white/10 text-white hover:bg-white/20"

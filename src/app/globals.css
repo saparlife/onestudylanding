@@ -109,3 +109,8 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+/* Fix cursor for buttons and links */
+button, a, [role="button"] {
+  cursor: pointer;
+}
