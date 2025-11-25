@@ -2,6 +2,8 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Problems } from "@/components/Problems";
 import { Features } from "@/components/Features";
+import { VideoDemo } from "@/components/VideoDemo";
+import { Testimonials } from "@/components/Testimonials";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Pricing } from "@/components/Pricing";
 import { FAQ } from "@/components/FAQ";
@@ -16,6 +18,8 @@ export default function Home() {
         <Hero />
         <Problems />
         <Features />
+        <VideoDemo />
+        <Testimonials />
         <HowItWorks />
         <Pricing />
         <FAQ />

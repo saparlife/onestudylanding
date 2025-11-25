@@ -1,3 +1,7 @@
+"use client";
+
+import { AnimatedCounter } from "./AnimatedCounter";
+
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 overflow-hidden bg-gray-950">
@@ -57,15 +61,21 @@ export function Hero() {
         {/* Stats */}
         <div className="grid grid-cols-3 gap-8 max-w-xl mx-auto">
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">43</div>
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
+              <AnimatedCounter end={43} />
+            </div>
             <div className="text-gray-500 text-sm">онлайн-школы</div>
           </div>
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">5000+</div>
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
+              <AnimatedCounter end={5000} suffix="+" />
+            </div>
             <div className="text-gray-500 text-sm">учеников</div>
           </div>
           <div>
-            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">24ч</div>
+            <div className="text-3xl sm:text-4xl font-bold text-white mb-1">
+              <AnimatedCounter end={24} suffix="ч" />
+            </div>
             <div className="text-gray-500 text-sm">на запуск</div>
           </div>
         </div>
