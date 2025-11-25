@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 1Study Landing
 
-## Getting Started
+Лендинг для платформы онлайн-школ 1Study.
 
-First, run the development server:
+## Стек
+
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Vercel
+
+## Запуск
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Деплой
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Автоматический деплой на Vercel при пуше в main.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Production:** https://1study.kz
 
-## Learn More
+## Структура
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── layout.tsx      # SEO, метаданные, шрифты
+│   ├── page.tsx        # Главная страница
+│   └── globals.css     # Глобальные стили
+├── components/
+│   ├── Header.tsx      # Навигация
+│   ├── Hero.tsx        # Главный экран
+│   ├── Problems.tsx    # Проблемы
+│   ├── Features.tsx    # Возможности
+│   ├── VideoDemo.tsx   # Демо видео
+│   ├── Testimonials.tsx # Отзывы
+│   ├── AppDownload.tsx # Скачать приложение
+│   ├── HowItWorks.tsx  # Как начать
+│   ├── Pricing.tsx     # Тарифы
+│   ├── FAQ.tsx         # Вопросы
+│   ├── CTA.tsx         # Призыв к действию
+│   ├── Footer.tsx      # Подвал
+│   ├── LeadModal.tsx   # Форма заявки
+│   └── LeadModalProvider.tsx
+public/
+├── testimonials/       # Фото клиентов
+└── ...                 # Иконки, OG изображение
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Переменные окружения
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+NEXT_PUBLIC_TELEGRAM_BOT_TOKEN=xxx
+NEXT_PUBLIC_TELEGRAM_CHAT_ID=xxx
+```
 
-## Deploy on Vercel
+Заявки с формы отправляются в Telegram группу.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Домен
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `1study.kz` → Vercel (этот лендинг)
+- `app.1study.kz` → Firebase (Flutter приложение)
+- `web.1study.kz` → Firebase (веб-версия)
