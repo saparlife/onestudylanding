@@ -3,62 +3,59 @@ export function HowItWorks() {
     {
       number: "01",
       title: "Регистрация",
-      description: "Создайте аккаунт школы за 2 минуты. Никаких документов и верификаций.",
-      gradient: "from-indigo-500 to-purple-500",
+      description: "Создайте аккаунт школы за 2 минуты",
     },
     {
       number: "02",
       title: "Загрузите контент",
-      description: "Добавьте курсы, уроки, видео, PDF-материалы. Настройте дизайн под свой бренд.",
-      gradient: "from-purple-500 to-pink-500",
+      description: "Добавьте курсы, видео, PDF-материалы",
     },
     {
       number: "03",
       title: "Подключите WhatsApp",
-      description: "Сканируйте QR-код — и приглашения будут уходить с вашего номера.",
-      gradient: "from-pink-500 to-rose-500",
+      description: "Сканируйте QR — приглашения с вашего номера",
     },
     {
       number: "04",
       title: "Приглашайте учеников",
-      description: "Добавьте ученика — он получит ссылки на iOS, Android и веб. Готово!",
-      gradient: "from-rose-500 to-orange-500",
+      description: "Ссылки на iOS, Android и веб. Готово!",
     },
   ];
 
   return (
-    <section className="py-24 px-4 sm:px-6 relative overflow-hidden">
+    <section className="py-24 px-4 sm:px-6 bg-gray-950 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-gray-50 to-white" />
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/2 w-[600px] h-[600px] bg-purple-600/10 rounded-full filter blur-[120px] -translate-x-1/2" />
+      </div>
 
-      <div className="max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <span className="inline-block text-indigo-600 font-semibold mb-4">Как начать</span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6">
-            От регистрации до первого ученика —{" "}
-            <span className="gradient-text">меньше часа</span>
+          <p className="text-purple-400 font-medium mb-4">Как начать</p>
+          <h2 className="text-3xl sm:text-5xl font-bold text-white">
+            От регистрации до ученика — час
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
-            <div key={index} className="relative group">
-              {/* Connector line */}
+            <div key={index} className="relative">
+              {/* Connector */}
               {index < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-gray-200 to-transparent -translate-x-1/2 z-0" />
+                <div className="hidden lg:block absolute top-8 left-full w-full h-px bg-gradient-to-r from-white/20 to-transparent -translate-x-1/2 z-0" />
               )}
 
-              <div className="bg-white p-8 rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl transition-all relative z-10 hover-lift">
+              <div className="bg-white/5 backdrop-blur border border-white/10 p-6 rounded-2xl relative z-10">
                 {/* Number */}
-                <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${step.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
-                  <span className="text-2xl font-extrabold text-white">{step.number}</span>
+                <div className="text-5xl font-bold text-white/10 mb-4">
+                  {step.number}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg font-semibold text-white mb-2">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                <p className="text-gray-400 text-sm">{step.description}</p>
               </div>
             </div>
           ))}

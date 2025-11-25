@@ -17,7 +17,7 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/80 backdrop-blur-lg border-b border-gray-200/50 shadow-sm"
+          ? "bg-gray-950/90 backdrop-blur-lg border-b border-white/10"
           : "bg-transparent"
       }`}
     >
@@ -28,13 +28,13 @@ export function Header() {
           </a>
 
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-gray-600 hover:text-indigo-600 transition font-medium">
+            <a href="#features" className="text-gray-300 hover:text-white transition font-medium">
               Возможности
             </a>
-            <a href="#pricing" className="text-gray-600 hover:text-indigo-600 transition font-medium">
+            <a href="#pricing" className="text-gray-300 hover:text-white transition font-medium">
               Тарифы
             </a>
-            <a href="#faq" className="text-gray-600 hover:text-indigo-600 transition font-medium">
+            <a href="#faq" className="text-gray-300 hover:text-white transition font-medium">
               FAQ
             </a>
           </nav>
@@ -42,7 +42,7 @@ export function Header() {
           <div className="flex items-center gap-3 sm:gap-4">
             <a
               href="https://app.1study.kz"
-              className="text-gray-600 hover:text-indigo-600 transition hidden sm:block font-medium"
+              className="text-gray-300 hover:text-white transition hidden sm:block font-medium"
             >
               Войти
             </a>
