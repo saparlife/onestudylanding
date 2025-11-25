@@ -189,9 +189,27 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Video Demo
     "video.label": "Демо",
-    "video.title": "Посмотрите платформу в действии",
-    "video.subtitle": "2 минуты — и вы поймёте, как это работает",
+    "video.title": "Посмотрите как это работает",
+    "video.subtitle": "2 минуты — и вы поймёте всё",
     "video.play": "Смотреть демо",
+    "video.preview": "Превью видео",
+    "video.placeholder": "Видео будет здесь",
+    "video.placeholderHint": "Вставить YouTube/Vimeo embed или загрузить видео",
+    "video.feature1": "Мобильное приложение",
+    "video.feature2": "Защита контента",
+    "video.feature3": "WhatsApp интеграция",
+
+    // How It Works
+    "howItWorks.label": "Как начать",
+    "howItWorks.title": "От регистрации до ученика — час",
+    "howItWorks.step1.title": "Регистрация",
+    "howItWorks.step1.desc": "Создайте аккаунт школы за 2 минуты",
+    "howItWorks.step2.title": "Загрузите контент",
+    "howItWorks.step2.desc": "Добавьте курсы, видео, PDF-материалы",
+    "howItWorks.step3.title": "Подключите WhatsApp",
+    "howItWorks.step3.desc": "Сканируйте QR — приглашения с вашего номера",
+    "howItWorks.step4.title": "Приглашайте учеников",
+    "howItWorks.step4.desc": "Ссылки на iOS, Android и веб. Готово!",
   },
   en: {
     // Header
@@ -371,9 +389,27 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Video Demo
     "video.label": "Demo",
-    "video.title": "See the platform in action",
-    "video.subtitle": "2 minutes — and you'll understand how it works",
+    "video.title": "See how it works",
+    "video.subtitle": "2 minutes — and you'll understand everything",
     "video.play": "Watch demo",
+    "video.preview": "Video preview",
+    "video.placeholder": "Video will be here",
+    "video.placeholderHint": "Insert YouTube/Vimeo embed or upload video",
+    "video.feature1": "Mobile app",
+    "video.feature2": "Content protection",
+    "video.feature3": "WhatsApp integration",
+
+    // How It Works
+    "howItWorks.label": "How to start",
+    "howItWorks.title": "From registration to student — 1 hour",
+    "howItWorks.step1.title": "Registration",
+    "howItWorks.step1.desc": "Create a school account in 2 minutes",
+    "howItWorks.step2.title": "Upload content",
+    "howItWorks.step2.desc": "Add courses, videos, PDF materials",
+    "howItWorks.step3.title": "Connect WhatsApp",
+    "howItWorks.step3.desc": "Scan QR — invitations from your number",
+    "howItWorks.step4.title": "Invite students",
+    "howItWorks.step4.desc": "Links for iOS, Android and web. Done!",
   },
   kz: {
     // Header
@@ -553,9 +589,27 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Video Demo
     "video.label": "Демо",
-    "video.title": "Платформаны әрекетте көріңіз",
-    "video.subtitle": "2 минут — және бұл қалай жұмыс істейтінін түсінесіз",
+    "video.title": "Бұл қалай жұмыс істейтінін көріңіз",
+    "video.subtitle": "2 минут — және бәрін түсінесіз",
     "video.play": "Демо көру",
+    "video.preview": "Видео алдын ала көру",
+    "video.placeholder": "Видео осында болады",
+    "video.placeholderHint": "YouTube/Vimeo embed қосыңыз немесе видео жүктеңіз",
+    "video.feature1": "Мобильді қосымша",
+    "video.feature2": "Контент қорғау",
+    "video.feature3": "WhatsApp интеграция",
+
+    // How It Works
+    "howItWorks.label": "Қалай бастау",
+    "howItWorks.title": "Тіркелуден оқушыға дейін — сағат",
+    "howItWorks.step1.title": "Тіркелу",
+    "howItWorks.step1.desc": "2 минутта мектеп аккаунтын жасаңыз",
+    "howItWorks.step2.title": "Контент жүктеңіз",
+    "howItWorks.step2.desc": "Курстар, видео, PDF-материалдар қосыңыз",
+    "howItWorks.step3.title": "WhatsApp қосыңыз",
+    "howItWorks.step3.desc": "QR сканерлеңіз — сіздің нөміріңізден шақырулар",
+    "howItWorks.step4.title": "Оқушыларды шақырыңыз",
+    "howItWorks.step4.desc": "iOS, Android және веб сілтемелер. Дайын!",
   },
 };
 

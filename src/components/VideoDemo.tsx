@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "./LanguageProvider";
 
 export function VideoDemo() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <>
@@ -15,12 +17,12 @@ export function VideoDemo() {
 
         <div className="relative z-10 max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-indigo-400 font-medium mb-4">Демо</p>
+            <p className="text-indigo-400 font-medium mb-4">{t("video.label")}</p>
             <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-              Посмотрите как это работает
+              {t("video.title")}
             </h2>
             <p className="text-xl text-gray-400">
-              2 минуты — и вы поймёте всё
+              {t("video.subtitle")}
             </p>
           </div>
 
@@ -37,7 +39,7 @@ export function VideoDemo() {
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 mx-auto mb-4 flex items-center justify-center">
                     <span className="text-2xl font-bold text-white">1S</span>
                   </div>
-                  <p className="text-gray-500 text-sm">Превью видео</p>
+                  <p className="text-gray-500 text-sm">{t("video.preview")}</p>
                 </div>
               </div>
             </div>
@@ -59,15 +61,15 @@ export function VideoDemo() {
           <div className="grid grid-cols-3 gap-6 mt-8">
             <div className="text-center">
               <div className="text-2xl mb-2">📱</div>
-              <p className="text-gray-400 text-sm">Мобильное приложение</p>
+              <p className="text-gray-400 text-sm">{t("video.feature1")}</p>
             </div>
             <div className="text-center">
               <div className="text-2xl mb-2">🔒</div>
-              <p className="text-gray-400 text-sm">Защита контента</p>
+              <p className="text-gray-400 text-sm">{t("video.feature2")}</p>
             </div>
             <div className="text-center">
               <div className="text-2xl mb-2">💬</div>
-              <p className="text-gray-400 text-sm">WhatsApp интеграция</p>
+              <p className="text-gray-400 text-sm">{t("video.feature3")}</p>
             </div>
           </div>
         </div>
@@ -96,8 +98,8 @@ export function VideoDemo() {
             {/* Video placeholder - replace with actual video */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center">
-                <p className="text-gray-400 mb-4">Видео будет здесь</p>
-                <p className="text-gray-600 text-sm">Вставить YouTube/Vimeo embed или загрузить видео</p>
+                <p className="text-gray-400 mb-4">{t("video.placeholder")}</p>
+                <p className="text-gray-600 text-sm">{t("video.placeholderHint")}</p>
               </div>
             </div>
 

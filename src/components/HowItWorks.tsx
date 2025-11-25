@@ -1,24 +1,30 @@
+"use client";
+
+import { useLanguage } from "./LanguageProvider";
+
 export function HowItWorks() {
+  const { t } = useLanguage();
+
   const steps = [
     {
       number: "01",
-      title: "Регистрация",
-      description: "Создайте аккаунт школы за 2 минуты",
+      title: t("howItWorks.step1.title"),
+      description: t("howItWorks.step1.desc"),
     },
     {
       number: "02",
-      title: "Загрузите контент",
-      description: "Добавьте курсы, видео, PDF-материалы",
+      title: t("howItWorks.step2.title"),
+      description: t("howItWorks.step2.desc"),
     },
     {
       number: "03",
-      title: "Подключите WhatsApp",
-      description: "Сканируйте QR — приглашения с вашего номера",
+      title: t("howItWorks.step3.title"),
+      description: t("howItWorks.step3.desc"),
     },
     {
       number: "04",
-      title: "Приглашайте учеников",
-      description: "Ссылки на iOS, Android и веб. Готово!",
+      title: t("howItWorks.step4.title"),
+      description: t("howItWorks.step4.desc"),
     },
   ];
 
@@ -31,9 +37,9 @@ export function HowItWorks() {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-purple-400 font-medium mb-4">Как начать</p>
+          <p className="text-purple-400 font-medium mb-4">{t("howItWorks.label")}</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white">
-            От регистрации до ученика — час
+            {t("howItWorks.title")}
           </h2>
         </div>
 
