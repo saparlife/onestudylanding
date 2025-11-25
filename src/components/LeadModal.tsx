@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "./LanguageProvider";
 
 interface LeadModalProps {
   isOpen: boolean;
@@ -14,13 +15,14 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const { t } = useLanguage();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
     if (!name.trim() || !phone.trim()) {
-      setError("Заполните все поля");
+      setError(t("modal.errorEmpty"));
       return;
     }
 
@@ -55,7 +57,7 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
         onClose();
       }, 2000);
     } catch {
-      setError("Ошибка отправки. Попробуйте позже.");
+      setError(t("modal.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -89,43 +91,43 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h3 className="text-xl font-bold text-white mb-2">Заявка отправлена!</h3>
-            <p className="text-gray-400">Мы свяжемся с вами в ближайшее время</p>
+            <h3 className="text-xl font-bold text-white mb-2">{t("modal.success")}</h3>
+            <p className="text-gray-400">{t("modal.successDesc")}</p>
           </div>
         ) : (
           <>
             <div className="text-center mb-8">
               <h3 className="text-2xl font-bold text-white mb-2">
-                {planName ? `Тариф "${planName}"` : "Начать бесплатно"}
+                {planName ? `${t("modal.titlePlan")} "${planName}"` : t("modal.titleFree")}
               </h3>
               <p className="text-gray-400">
-                Оставьте заявку и мы поможем начать
+                {t("modal.subtitle")}
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Ваше имя
+                  {t("modal.name")}
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Например, Айгерим"
+                  placeholder={t("modal.namePlaceholder")}
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Номер телефона
+                  {t("modal.phone")}
                 </label>
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+7 777 123 45 67"
+                  placeholder={t("modal.phonePlaceholder")}
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
@@ -139,13 +141,13 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
                 disabled={isSubmitting}
                 className="w-full py-4 rounded-xl gradient-bg text-white font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {isSubmitting ? "Отправка..." : "Оставить заявку"}
+                {isSubmitting ? t("modal.submitting") : t("modal.submit")}
               </button>
 
               <p className="text-center text-gray-500 text-xs">
-                Нажимая кнопку, вы соглашаетесь с{" "}
+                {t("modal.privacy")}{" "}
                 <a href="/privacy" className="text-indigo-400 hover:underline">
-                  политикой конфиденциальности
+                  {t("modal.privacyLink")}
                 </a>
               </p>
             </form>

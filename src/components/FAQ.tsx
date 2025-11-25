@@ -1,34 +1,32 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "./LanguageProvider";
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const { t } = useLanguage();
 
   const faqs = [
     {
-      question: "Как работает защита от пиратства?",
-      answer: "При попытке сделать скриншот или запись экрана — ученик увидит чёрный экран. Как в банковских приложениях. Технология встроена на уровне Flutter.",
+      question: t("faq.1.q"),
+      answer: t("faq.1.a"),
     },
     {
-      question: "Как ученики получают доступ?",
-      answer: "Добавляете ученика → он получает сообщение в WhatsApp с вашего номера → ссылки на App Store, Google Play и веб. Скачивает, входит, учится.",
+      question: t("faq.2.q"),
+      answer: t("faq.2.a"),
     },
     {
-      question: "Можно перенести курсы с другой платформы?",
-      answer: "Да. Видео загружаете как обычно, тексты копируете, PDF добавляете. Если много контента — поможем с миграцией.",
+      question: t("faq.3.q"),
+      answer: t("faq.3.a"),
     },
     {
-      question: "Что значит 'учеников в месяц'?",
-      answer: "Количество новых учеников за месяц. Уже добавленные не считаются. На Эконом — до 20 новых учеников каждый месяц.",
+      question: t("faq.4.q"),
+      answer: t("faq.4.a"),
     },
     {
-      question: "Есть веб-версия?",
-      answer: "Да, ученики могут учиться через браузер. Но защита от записи работает только в мобильном приложении.",
-    },
-    {
-      question: "Как подключить WhatsApp?",
-      answer: "В админке нажимаете 'Подключить WhatsApp' → сканируете QR с телефона → готово. Приглашения уходят с вашего номера.",
+      question: t("faq.5.q"),
+      answer: t("faq.5.a"),
     },
   ];
 
@@ -41,9 +39,9 @@ export function FAQ() {
 
       <div className="relative z-10 max-w-3xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-indigo-400 font-medium mb-4">FAQ</p>
+          <p className="text-indigo-400 font-medium mb-4">{t("faq.label")}</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white">
-            Частые вопросы
+            {t("faq.title")}
           </h2>
         </div>
 

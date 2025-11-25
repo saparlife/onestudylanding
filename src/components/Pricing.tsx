@@ -2,62 +2,64 @@
 
 import { useState } from "react";
 import { useLeadModal } from "./LeadModalProvider";
+import { useLanguage } from "./LanguageProvider";
 
 export function Pricing() {
   const [isYearly, setIsYearly] = useState(true);
   const { openModal } = useLeadModal();
+  const { t } = useLanguage();
 
   const plans = [
     {
-      name: "Старт",
+      name: t("pricing.plan1.name"),
       monthlyPrice: "19 900",
       yearlyPrice: "15 900",
       quarterTotal: "59 700",
       yearTotal: "190 800",
-      description: "Для начинающих",
-      students: "100 учеников/мес",
-      courses: "3 курса",
+      description: t("pricing.plan1.desc"),
+      students: "100 " + t("pricing.feature.students") + "/мес",
+      courses: "3 " + t("pricing.feature.courses"),
       storage: "30 ГБ",
       features: [
-        "iOS и Android приложение",
-        "Защита от записи экрана",
-        "WhatsApp уведомления",
-        "Мультиязычность",
+        t("pricing.feature.mobileApp"),
+        t("pricing.feature.antiPiracy"),
+        t("pricing.feature.whatsapp"),
+        t("features.3.title"),
       ],
       popular: false,
     },
     {
-      name: "Школа",
+      name: t("pricing.plan2.name"),
       monthlyPrice: "49 900",
       yearlyPrice: "39 900",
       quarterTotal: "149 700",
       yearTotal: "478 800",
-      description: "Для растущих школ",
-      students: "500 учеников/мес",
-      courses: "10 курсов",
+      description: t("pricing.plan2.desc"),
+      students: "500 " + t("pricing.feature.students") + "/мес",
+      courses: "10 " + t("pricing.feature.courses"),
       storage: "100 ГБ",
       features: [
-        "Всё из Старт",
-        "Приоритетная поддержка",
-        "Аналитика",
-        "База знаний",
+        t("pricing.plan1.name") + " +",
+        t("pricing.feature.priority"),
+        t("pricing.feature.analytics"),
+        t("features.5.title"),
       ],
       popular: true,
     },
     {
-      name: "Академия",
+      name: t("pricing.plan3.name"),
       monthlyPrice: "99 000",
       yearlyPrice: "79 000",
       quarterTotal: "297 000",
       yearTotal: "948 000",
-      description: "Для крупных школ",
-      students: "Безлимит учеников",
-      courses: "Безлимит курсов",
+      description: t("pricing.plan3.desc"),
+      students: t("pricing.feature.unlimitedStudents"),
+      courses: t("pricing.feature.unlimitedCourses"),
       storage: "300 ГБ",
       features: [
-        "Всё из Школа",
-        "Личный менеджер",
-        "API интеграции",
+        t("pricing.plan2.name") + " +",
+        t("pricing.feature.manager"),
+        t("pricing.feature.api"),
         "White-label",
       ],
       popular: false,
@@ -74,12 +76,12 @@ export function Pricing() {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <p className="text-indigo-400 font-medium mb-4">Тарифы</p>
+          <p className="text-indigo-400 font-medium mb-4">{t("pricing.label")}</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-            Простые и прозрачные
+            {t("pricing.title")}
           </h2>
           <p className="text-xl text-gray-400 mb-8">
-            14 дней бесплатно. Минимум 3 месяца.
+            {t("pricing.subtitle")}
           </p>
 
           {/* Toggle */}
@@ -92,7 +94,7 @@ export function Pricing() {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              Квартал
+              {t("pricing.quarterly")}
             </button>
             <button
               onClick={() => setIsYearly(true)}
@@ -102,11 +104,11 @@ export function Pricing() {
                   : "text-gray-400 hover:text-white"
               }`}
             >
-              Год
+              {t("pricing.yearly")}
               <span className={`text-xs px-2 py-0.5 rounded-full ${
                 isYearly ? "bg-green-500 text-white" : "bg-green-500/20 text-green-400"
               }`}>
-                -20%
+                {t("pricing.discount")}
               </span>
             </button>
           </div>
@@ -125,7 +127,7 @@ export function Pricing() {
               {plan.popular && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                   <span className="gradient-bg text-white text-xs font-semibold px-4 py-1.5 rounded-full">
-                    Популярный
+                    {t("pricing.popular")}
                   </span>
                 </div>
               )}
@@ -147,8 +149,8 @@ export function Pricing() {
                   </div>
                   <p className="text-gray-500 text-sm mt-1">
                     {isYearly
-                      ? `${plan.yearTotal} ₸ за год`
-                      : `${plan.quarterTotal} ₸ за 3 месяца`
+                      ? `${plan.yearTotal} ₸ ${t("pricing.perYear")}`
+                      : `${plan.quarterTotal} ₸ ${t("pricing.perQuarter")}`
                     }
                   </p>
                 </div>
@@ -186,7 +188,7 @@ export function Pricing() {
                       : "bg-white/10 text-white hover:bg-white/20"
                   }`}
                 >
-                  Начать бесплатно
+                  {t("cta.button")}
                 </button>
               </div>
             </div>
@@ -194,9 +196,9 @@ export function Pricing() {
         </div>
 
         <p className="text-center text-gray-500 mt-12">
-          Нужно больше?{" "}
+          {t("footer.contact")}:{" "}
           <a href="https://wa.me/77476899983" className="text-indigo-400 hover:underline">
-            Напишите нам
+            WhatsApp
           </a>
         </p>
       </div>

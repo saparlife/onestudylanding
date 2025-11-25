@@ -1,24 +1,30 @@
+"use client";
+
+import { useLanguage } from "./LanguageProvider";
+
 export function Problems() {
+  const { t } = useLanguage();
+
   const problems = [
     {
-      icon: "🏴‍☠️",
-      problem: "Курсы сливают в Telegram",
-      description: "Ученики записывают экран и продают ваш контент за копейки",
+      icon: t("problems.1.icon"),
+      problem: t("problems.1.title"),
+      description: t("problems.1.desc"),
     },
     {
-      icon: "📧",
-      problem: "Email попадает в спам",
-      description: "Ученики не видят приглашение и не могут начать обучение",
+      icon: t("problems.2.icon"),
+      problem: t("problems.2.title"),
+      description: t("problems.2.desc"),
     },
     {
-      icon: "📱",
-      problem: "Нет мобильного приложения",
-      description: "Ученикам неудобно учиться с телефона через браузер",
+      icon: t("problems.3.icon"),
+      problem: t("problems.3.title"),
+      description: t("problems.3.desc"),
     },
     {
-      icon: "🌐",
-      problem: "Нет казахского языка",
-      description: "Платформы только на русском, а вам нужен қазақша",
+      icon: t("problems.4.icon"),
+      problem: t("problems.4.title"),
+      description: t("problems.4.desc"),
     },
   ];
 
@@ -32,12 +38,12 @@ export function Problems() {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-red-400 font-medium mb-4">Проблемы</p>
+          <p className="text-red-400 font-medium mb-4">{t("problems.label")}</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-            Знакомые проблемы?
+            {t("problems.title")}
           </h2>
           <p className="text-xl text-gray-400">
-            Другие платформы не решают главные боли онлайн-школ
+            {t("problems.subtitle")}
           </p>
         </div>
 
@@ -64,7 +70,7 @@ export function Problems() {
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-4 rounded-full">
             <span className="text-2xl">✨</span>
             <p className="text-lg font-semibold text-white">
-              1Study решает все эти проблемы
+              {t("problems.solution")}
             </p>
             <svg className="w-5 h-5 text-white animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />

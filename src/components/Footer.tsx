@@ -1,4 +1,10 @@
+"use client";
+
+import { useLanguage } from "./LanguageProvider";
+
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-gray-950 text-gray-400 pt-16 pb-8 px-4 sm:px-6 border-t border-white/10">
       <div className="max-w-6xl mx-auto">
@@ -9,7 +15,7 @@ export function Footer() {
               1Study
             </a>
             <p className="text-gray-400 leading-relaxed max-w-sm">
-              Платформа для онлайн-школ с защитой от пиратства. Мобильное приложение, WhatsApp уведомления, мультиязычность.
+              {t("footer.desc")}
             </p>
             <div className="flex gap-4 mt-6">
               <a href="https://instagram.com/1study.kz" className="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-indigo-600 hover:border-indigo-600 transition">
@@ -27,17 +33,17 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-white font-bold mb-6">Продукт</h4>
+            <h4 className="text-white font-bold mb-6">{t("footer.product")}</h4>
             <ul className="space-y-4">
-              <li><a href="#features" className="hover:text-white transition">Возможности</a></li>
-              <li><a href="#pricing" className="hover:text-white transition">Тарифы</a></li>
-              <li><a href="#faq" className="hover:text-white transition">FAQ</a></li>
+              <li><a href="#features" className="hover:text-white transition">{t("footer.features")}</a></li>
+              <li><a href="#pricing" className="hover:text-white transition">{t("footer.pricing")}</a></li>
+              <li><a href="#faq" className="hover:text-white transition">{t("footer.faq")}</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-bold mb-6">Контакты</h4>
+            <h4 className="text-white font-bold mb-6">{t("footer.contact")}</h4>
             <ul className="space-y-4">
               <li><a href="mailto:hello@1study.kz" className="hover:text-white transition">hello@1study.kz</a></li>
               <li><a href="https://wa.me/77476899983" className="hover:text-white transition">WhatsApp</a></li>
@@ -48,11 +54,11 @@ export function Footer() {
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} 1Study. Все права защищены.
+            © {new Date().getFullYear()} 1Study. {t("footer.rights")}
           </p>
           <div className="flex gap-6 text-sm text-gray-500">
-            <a href="/privacy" className="hover:text-white transition">Политика конфиденциальности</a>
-            <a href="/terms" className="hover:text-white transition">Условия использования</a>
+            <a href="/privacy" className="hover:text-white transition">{t("footer.privacy")}</a>
+            <a href="/terms" className="hover:text-white transition">{t("footer.terms")}</a>
           </div>
         </div>
       </div>

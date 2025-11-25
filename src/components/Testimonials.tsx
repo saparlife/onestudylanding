@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useLanguage } from "./LanguageProvider";
 
 export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -9,30 +10,31 @@ export function Testimonials() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
+  const { t } = useLanguage();
 
   const testimonials = [
     {
-      name: "Аксултан Кали",
-      role: "Baipket Academy",
-      followers: "1 млн подписчиков",
+      name: t("testimonials.1.name"),
+      role: t("testimonials.1.role"),
+      followers: t("testimonials.1.followers"),
       image: "/testimonials/aksultan.jpg",
-      quote: "1Study помог защитить наши курсы от пиратства. Раньше контент сливали в телеграм, теперь всё под контролем. Ученики довольны мобильным приложением.",
+      quote: t("testimonials.1.quote"),
       instagram: "https://www.instagram.com/aksultankali/",
     },
     {
-      name: "Куаныш Шонбай",
-      role: "Shonbay.Lab",
-      followers: "330K подписчиков",
+      name: t("testimonials.2.name"),
+      role: t("testimonials.2.role"),
+      followers: t("testimonials.2.followers"),
       image: "/testimonials/kuanysh.jpg",
-      quote: "Перешли на 1Study и сразу почувствовали разницу. WhatsApp уведомления работают отлично, ученики не теряются. Рекомендую всем онлайн-школам.",
+      quote: t("testimonials.2.quote"),
       instagram: "https://www.instagram.com/kuantr/",
     },
     {
-      name: "Ako_Speaks",
-      role: "Орыс тілі №1 академия",
-      followers: "283K подписчиков",
+      name: t("testimonials.3.name"),
+      role: t("testimonials.3.role"),
+      followers: t("testimonials.3.followers"),
       image: "/testimonials/ako.jpg",
-      quote: "Мобильное приложение — это то, чего не хватало нашим ученикам. Теперь они учатся в любом месте, а мы спокойны за контент.",
+      quote: t("testimonials.3.quote"),
       instagram: "https://www.instagram.com/ako_speaks/",
     },
   ];
@@ -104,12 +106,12 @@ export function Testimonials() {
 
       <div className="relative z-10 max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-purple-400 font-medium mb-4">Отзывы</p>
+          <p className="text-purple-400 font-medium mb-4">{t("testimonials.label")}</p>
           <h2 className="text-3xl sm:text-5xl font-bold text-white mb-6">
-            Нам доверяют лидеры рынка
+            {t("testimonials.title")}
           </h2>
           <p className="text-xl text-gray-400">
-            Более 1.5 млн подписчиков у наших клиентов
+            {t("testimonials.subtitle")}
           </p>
         </div>
 
@@ -184,7 +186,7 @@ export function Testimonials() {
 
           {/* Swipe hint */}
           <p className="text-center text-gray-600 text-sm mt-4">
-            ← Свайпните для просмотра →
+            {t("testimonials.swipe")}
           </p>
         </div>
 
@@ -211,15 +213,15 @@ export function Testimonials() {
         <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-white/10">
           <div className="text-center">
             <div className="text-3xl font-bold text-white mb-1">1.6M+</div>
-            <div className="text-gray-500 text-sm">подписчиков у клиентов</div>
+            <div className="text-gray-500 text-sm">{t("testimonials.stats.followers")}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-white mb-1">43</div>
-            <div className="text-gray-500 text-sm">онлайн-школы</div>
+            <div className="text-gray-500 text-sm">{t("testimonials.stats.schools")}</div>
           </div>
           <div className="text-center">
             <div className="text-3xl font-bold text-white mb-1">0</div>
-            <div className="text-gray-500 text-sm">сливов контента</div>
+            <div className="text-gray-500 text-sm">{t("testimonials.stats.leaks")}</div>
           </div>
         </div>
       </div>
