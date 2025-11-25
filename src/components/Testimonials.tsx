@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -8,32 +9,31 @@ export function Testimonials() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [currentX, setCurrentX] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const testimonials = [
     {
-      name: "Айгерим Сатыбалдиева",
-      role: "Основатель школы английского",
-      followers: "150K подписчиков",
-      image: "/testimonials/person1.jpg",
-      quote: "До 1Study мои курсы сливали в телеграм через неделю после запуска. Теперь контент защищён, а ученики получают удобное приложение.",
-      instagram: "@aigerim_english",
+      name: "Аксултан Кали",
+      role: "Baipket Academy",
+      followers: "1 млн подписчиков",
+      image: "/testimonials/aksultan.jpg",
+      quote: "1Study помог защитить наши курсы от пиратства. Раньше контент сливали в телеграм, теперь всё под контролем. Ученики довольны мобильным приложением.",
+      instagram: "https://www.instagram.com/aksultankali/",
     },
     {
-      name: "Дамир Кенжебаев",
-      role: "Эксперт по инвестициям",
-      followers: "200K подписчиков",
-      image: "/testimonials/person2.jpg",
-      quote: "Перешёл с GetCourse — там не было мобильного приложения. Ученики довольны, конверсия выросла на 30%.",
-      instagram: "@damir_invest",
+      name: "Куаныш Шонбай",
+      role: "Shonbay.Lab",
+      followers: "330K подписчиков",
+      image: "/testimonials/kuanysh.jpg",
+      quote: "Перешли на 1Study и сразу почувствовали разницу. WhatsApp уведомления работают отлично, ученики не теряются. Рекомендую всем онлайн-школам.",
+      instagram: "https://www.instagram.com/kuantr/",
     },
     {
-      name: "Мадина Касымова",
-      role: "Школа кондитеров",
-      followers: "80K подписчиков",
-      image: "/testimonials/person3.jpg",
-      quote: "WhatsApp уведомления — это гениально. Ученики сразу видят приглашение, не нужно искать в почте.",
-      instagram: "@madina_cakes",
+      name: "Ako_Speaks",
+      role: "Орыс тілі №1 академия",
+      followers: "283K подписчиков",
+      image: "/testimonials/ako.jpg",
+      quote: "Мобильное приложение — это то, чего не хватало нашим ученикам. Теперь они учатся в любом месте, а мы спокойны за контент.",
+      instagram: "https://www.instagram.com/ako_speaks/",
     },
   ];
 
@@ -67,10 +67,8 @@ export function Testimonials() {
     const threshold = 50;
 
     if (diff > threshold) {
-      // Swipe left - next
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
     } else if (diff < -threshold) {
-      // Swipe right - prev
       setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
     }
 
@@ -79,7 +77,6 @@ export function Testimonials() {
     setCurrentX(0);
   };
 
-  // Mouse events
   const handleMouseDown = (e: React.MouseEvent) => handleDragStart(e.clientX);
   const handleMouseMove = (e: React.MouseEvent) => handleDragMove(e.clientX);
   const handleMouseUp = () => handleDragEnd();
@@ -88,12 +85,10 @@ export function Testimonials() {
     setIsPaused(false);
   };
 
-  // Touch events
   const handleTouchStart = (e: React.TouchEvent) => handleDragStart(e.touches[0].clientX);
   const handleTouchMove = (e: React.TouchEvent) => handleDragMove(e.touches[0].clientX);
   const handleTouchEnd = () => {
     handleDragEnd();
-    // Keep paused for a moment after touch
     setTimeout(() => setIsPaused(false), 3000);
   };
 
@@ -114,14 +109,13 @@ export function Testimonials() {
             Нам доверяют лидеры рынка
           </h2>
           <p className="text-xl text-gray-400">
-            Более 40 онлайн-школ уже с нами
+            Более 1.5 млн подписчиков у наших клиентов
           </p>
         </div>
 
         {/* Carousel */}
         <div className="max-w-4xl mx-auto mb-12">
           <div
-            ref={containerRef}
             className="relative overflow-hidden select-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
@@ -155,14 +149,35 @@ export function Testimonials() {
 
                     {/* Author */}
                     <div className="flex items-center gap-4">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl">
-                        {testimonial.name.charAt(0)}
+                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                        <Image
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          width={64}
+                          height={64}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback to initials if image fails
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
                       </div>
-                      <div>
-                        <p className="text-white font-semibold">{testimonial.name}</p>
-                        <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                      <div className="flex-1">
+                        <p className="text-white font-semibold text-lg">{testimonial.name}</p>
+                        <p className="text-gray-400">{testimonial.role}</p>
                         <p className="text-indigo-400 text-sm">{testimonial.followers}</p>
                       </div>
+                      <a
+                        href={testimonial.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-pink-600 hover:border-pink-600 transition"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -195,18 +210,19 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* Logos row */}
-        <div className="border-t border-white/10 pt-12">
-          <p className="text-center text-gray-500 mb-8">Также с нами работают</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div
-                key={i}
-                className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-500 text-xs"
-              >
-                Logo
-              </div>
-            ))}
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12 border-t border-white/10">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">1.6M+</div>
+            <div className="text-gray-500 text-sm">подписчиков у клиентов</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">43</div>
+            <div className="text-gray-500 text-sm">онлайн-школы</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-white mb-1">0</div>
+            <div className="text-gray-500 text-sm">сливов контента</div>
           </div>
         </div>
       </div>
