@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 import { LeadModalProvider } from "@/components/LeadModalProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
@@ -83,7 +85,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
+    <html lang="ru" className="dark" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
@@ -92,9 +94,13 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0a0a" />
       </head>
       <body className={`${manrope.className} antialiased`}>
-        <LeadModalProvider>
-          {children}
-        </LeadModalProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <LeadModalProvider>
+              {children}
+            </LeadModalProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
