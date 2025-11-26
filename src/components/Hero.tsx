@@ -34,7 +34,9 @@ export function Hero() {
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] mb-8">
           {t("hero.title.line1")}
           <br />
-          <span className="gradient-text">{t("hero.title.line2")}</span>
+          {t("hero.title.line2")}
+          <br />
+          <span className="gradient-text">{t("hero.title.line3")}</span>
         </h1>
 
         {/* Subheadline */}

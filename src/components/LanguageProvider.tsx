@@ -21,8 +21,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero
     "hero.badge": "43 онлайн-школы уже с нами",
-    "hero.title.line1": "Платформа для онлайн-школ",
-    "hero.title.line2": "с защитой от пиратства",
+    "hero.title.line1": "Платформа для",
+    "hero.title.line2": "онлайн-школ",
+    "hero.title.line3": "с защитой от пиратства",
     "hero.subtitle": "Мобильное приложение для ваших учеников. Нельзя сделать скриншот — контент защищён.",
     "hero.cta": "Попробовать 14 дней бесплатно",
     "hero.learnMore": "Узнать больше",
@@ -221,8 +222,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero
     "hero.badge": "43 online schools already with us",
-    "hero.title.line1": "Platform for online schools",
-    "hero.title.line2": "with piracy protection",
+    "hero.title.line1": "Platform for",
+    "hero.title.line2": "online schools",
+    "hero.title.line3": "with piracy protection",
     "hero.subtitle": "Mobile app for your students. Screenshots blocked — content protected.",
     "hero.cta": "Try 14 days free",
     "hero.learnMore": "Learn more",
@@ -421,8 +423,9 @@ const translations: Record<Language, Record<string, string>> = {
 
     // Hero
     "hero.badge": "43 онлайн мектеп бізбен бірге",
-    "hero.title.line1": "Онлайн мектептер платформасы",
-    "hero.title.line2": "қарақшылықтан қорғаумен",
+    "hero.title.line1": "Онлайн мектептер",
+    "hero.title.line2": "платформасы",
+    "hero.title.line3": "қарақшылықтан қорғаумен",
     "hero.subtitle": "Оқушыларыңыз үшін мобильді қосымша. Скриншот түсіру мүмкін емес — контент қорғалған.",
     "hero.cta": "14 күн тегін байқап көру",
     "hero.learnMore": "Көбірек білу",
