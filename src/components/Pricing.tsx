@@ -4,16 +4,20 @@ import { useState } from "react";
 import { useLeadModal } from "./LeadModalProvider";
 import { useLanguage } from "./LanguageProvider";
 
+type BillingPeriod = "monthly" | "quarterly" | "yearly";
+
 export function Pricing() {
-  const [isYearly, setIsYearly] = useState(true);
+  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>("yearly");
   const { openModal } = useLeadModal();
   const { t } = useLanguage();
 
   const plans = [
     {
       name: t("pricing.plan1.name"),
-      monthlyPrice: "26 000",
+      monthlyPrice: "32 000",
+      quarterlyPrice: "26 000",
       yearlyPrice: "16 000",
+      monthTotal: "32 000",
       quarterTotal: "78 000",
       yearTotal: "192 000",
       description: t("pricing.plan1.desc"),
@@ -30,8 +34,10 @@ export function Pricing() {
     },
     {
       name: t("pricing.plan2.name"),
-      monthlyPrice: "64 000",
+      monthlyPrice: "80 000",
+      quarterlyPrice: "64 000",
       yearlyPrice: "40 000",
+      monthTotal: "80 000",
       quarterTotal: "192 000",
       yearTotal: "480 000",
       description: t("pricing.plan2.desc"),
@@ -48,8 +54,10 @@ export function Pricing() {
     },
     {
       name: t("pricing.plan3.name"),
-      monthlyPrice: "126 000",
+      monthlyPrice: "158 000",
+      quarterlyPrice: "126 000",
       yearlyPrice: "79 000",
+      monthTotal: "158 000",
       quarterTotal: "378 000",
       yearTotal: "948 000",
       description: t("pricing.plan3.desc"),
@@ -85,30 +93,45 @@ export function Pricing() {
           </p>
 
           {/* Toggle */}
-          <div className="inline-flex items-center gap-4 bg-white/5 backdrop-blur border border-white/10 p-1.5 rounded-full">
+          <div className="inline-flex items-center gap-1 bg-white/5 backdrop-blur border border-white/10 p-1.5 rounded-full">
             <button
-              onClick={() => setIsYearly(false)}
-              className={`px-6 py-2.5 rounded-full font-medium transition cursor-pointer ${
-                !isYearly
+              onClick={() => setBillingPeriod("monthly")}
+              className={`px-4 sm:px-6 py-2.5 rounded-full font-medium transition cursor-pointer ${
+                billingPeriod === "monthly"
+                  ? "bg-white text-gray-900"
+                  : "text-gray-400 hover:text-white"
+              }`}
+            >
+              {t("pricing.monthly")}
+            </button>
+            <button
+              onClick={() => setBillingPeriod("quarterly")}
+              className={`px-4 sm:px-6 py-2.5 rounded-full font-medium transition cursor-pointer flex items-center gap-2 ${
+                billingPeriod === "quarterly"
                   ? "bg-white text-gray-900"
                   : "text-gray-400 hover:text-white"
               }`}
             >
               {t("pricing.quarterly")}
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                billingPeriod === "quarterly" ? "bg-green-500 text-white" : "bg-green-500/20 text-green-400"
+              }`}>
+                -20%
+              </span>
             </button>
             <button
-              onClick={() => setIsYearly(true)}
-              className={`px-6 py-2.5 rounded-full font-medium transition cursor-pointer flex items-center gap-2 ${
-                isYearly
+              onClick={() => setBillingPeriod("yearly")}
+              className={`px-4 sm:px-6 py-2.5 rounded-full font-medium transition cursor-pointer flex items-center gap-2 ${
+                billingPeriod === "yearly"
                   ? "bg-white text-gray-900"
                   : "text-gray-400 hover:text-white"
               }`}
             >
               {t("pricing.yearly")}
               <span className={`text-xs px-2 py-0.5 rounded-full ${
-                isYearly ? "bg-green-500 text-white" : "bg-green-500/20 text-green-400"
+                billingPeriod === "yearly" ? "bg-green-500 text-white" : "bg-green-500/20 text-green-400"
               }`}>
-                {t("pricing.discount")}
+                -50%
               </span>
             </button>
           </div>
@@ -143,14 +166,20 @@ export function Pricing() {
                 <div className="mb-6">
                   <div className="flex items-baseline gap-1">
                     <span className="text-4xl font-bold text-white">
-                      {isYearly ? plan.yearlyPrice : plan.monthlyPrice}
+                      {billingPeriod === "yearly"
+                        ? plan.yearlyPrice
+                        : billingPeriod === "quarterly"
+                        ? plan.quarterlyPrice
+                        : plan.monthlyPrice}
                     </span>
                     <span className="text-gray-400">₸/мес</span>
                   </div>
                   <p className="text-gray-500 text-sm mt-1">
-                    {isYearly
+                    {billingPeriod === "yearly"
                       ? `${plan.yearTotal} ₸ ${t("pricing.perYear")}`
-                      : `${plan.quarterTotal} ₸ ${t("pricing.perQuarter")}`
+                      : billingPeriod === "quarterly"
+                      ? `${plan.quarterTotal} ₸ ${t("pricing.perQuarter")}`
+                      : `${plan.monthTotal} ₸ ${t("pricing.perMonth")}`
                     }
                   </p>
                 </div>
