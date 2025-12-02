@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useLanguage } from "./LanguageProvider";
 
 interface LeadModalProps {
@@ -13,9 +14,9 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
   const { t } = useLanguage();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,15 +48,12 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
         });
       }
 
-      setIsSuccess(true);
       setName("");
       setPhone("");
+      onClose();
 
-      // Close after 2 seconds
-      setTimeout(() => {
-        setIsSuccess(false);
-        onClose();
-      }, 2000);
+      // Redirect to thank-you page
+      router.push("/thank-you");
     } catch {
       setError(t("modal.error"));
     } finally {
@@ -84,75 +82,61 @@ export function LeadModal({ isOpen, onClose, planName }: LeadModalProps) {
           </svg>
         </button>
 
-        {isSuccess ? (
-          <div className="text-center py-8">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-white mb-2">{t("modal.success")}</h3>
-            <p className="text-gray-400">{t("modal.successDesc")}</p>
+        <div className="text-center mb-8">
+          <h3 className="text-2xl font-bold text-white mb-2">
+            {planName ? `${t("modal.titlePlan")} "${planName}"` : t("modal.titleFree")}
+          </h3>
+          <p className="text-gray-400">
+            {t("modal.subtitle")}
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              {t("modal.name")}
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t("modal.namePlaceholder")}
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+            />
           </div>
-        ) : (
-          <>
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold text-white mb-2">
-                {planName ? `${t("modal.titlePlan")} "${planName}"` : t("modal.titleFree")}
-              </h3>
-              <p className="text-gray-400">
-                {t("modal.subtitle")}
-              </p>
-            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  {t("modal.name")}
-                </label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t("modal.namePlaceholder")}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
-                />
-              </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              {t("modal.phone")}
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder={t("modal.phonePlaceholder")}
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
+            />
+          </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  {t("modal.phone")}
-                </label>
-                <input
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder={t("modal.phonePlaceholder")}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition"
-                />
-              </div>
+          {error && (
+            <p className="text-red-400 text-sm">{error}</p>
+          )}
 
-              {error && (
-                <p className="text-red-400 text-sm">{error}</p>
-              )}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full py-4 rounded-xl gradient-bg text-white font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isSubmitting ? t("modal.submitting") : t("modal.submit")}
+          </button>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-4 rounded-xl gradient-bg text-white font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? t("modal.submitting") : t("modal.submit")}
-              </button>
-
-              <p className="text-center text-gray-500 text-xs">
-                {t("modal.privacy")}{" "}
-                <a href="/privacy" className="text-indigo-400 hover:underline">
-                  {t("modal.privacyLink")}
-                </a>
-              </p>
-            </form>
-          </>
-        )}
+          <p className="text-center text-gray-500 text-xs">
+            {t("modal.privacy")}{" "}
+            <a href="/privacy" className="text-indigo-400 hover:underline">
+              {t("modal.privacyLink")}
+            </a>
+          </p>
+        </form>
       </div>
     </div>
   );

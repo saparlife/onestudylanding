@@ -2,7 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Problems } from "@/components/Problems";
 import { Features } from "@/components/Features";
-import { VideoDemo } from "@/components/VideoDemo";
+// import { VideoDemo } from "@/components/VideoDemo"; // Временно скрыто - видео не готово
 import { Testimonials } from "@/components/Testimonials";
 import { AppDownload } from "@/components/AppDownload";
 import { HowItWorks } from "@/components/HowItWorks";
@@ -19,7 +19,7 @@ export default function Home() {
         <Hero />
         <Problems />
         <Features />
-        <VideoDemo />
+        {/* <VideoDemo /> */}{/* Временно скрыто - видео не готово */}
         <Testimonials />
         <AppDownload />
         <HowItWorks />
