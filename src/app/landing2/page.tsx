@@ -40,7 +40,7 @@ export default function Landing2() {
         });
       }
 
-      router.push("/thank-you");
+      router.push("/thank-you2");
     } catch {
       setError("Ошибка отправки. Попробуйте позже.");
     } finally {
