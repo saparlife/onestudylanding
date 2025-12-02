@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useTheme } from "./ThemeProvider";
-import { useLanguage, Language } from "./LanguageProvider";
+import { useState, useEffect, useRef } from "react";
+import { useLanguage, Language, Currency } from "./LanguageProvider";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
-  const { language, setLanguage, t } = useLanguage();
+  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
+  const [currDropdownOpen, setCurrDropdownOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+  const currRef = useRef<HTMLDivElement>(null);
+  const { language, setLanguage, currency, setCurrency, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +20,33 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const languages: { code: Language; label: string }[] = [
-    { code: "kz", label: "KZ" },
-    { code: "ru", label: "RU" },
-    { code: "en", label: "EN" },
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setLangDropdownOpen(false);
+      }
+      if (currRef.current && !currRef.current.contains(event.target as Node)) {
+        setCurrDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const languages: { code: Language; label: string; flag: string }[] = [
+    { code: "ru", label: "Русский", flag: "🇷🇺" },
+    { code: "kz", label: "Қазақша", flag: "🇰🇿" },
+    { code: "en", label: "English", flag: "🇺🇸" },
   ];
+
+  const currencies: { code: Currency; label: string; symbol: string }[] = [
+    { code: "kzt", label: "Тенге", symbol: "₸" },
+    { code: "usd", label: "Dollar", symbol: "$" },
+  ];
+
+  const currentLang = languages.find(l => l.code === language) || languages[0];
+  const currentCurr = currencies.find(c => c.code === currency) || currencies[0];
 
   return (
     <header
@@ -53,45 +77,75 @@ export function Header() {
           </nav>
 
           {/* Right side controls */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Language Switcher - Desktop */}
-            <div className="hidden sm:flex items-center bg-white/5 rounded-full p-1">
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => setLanguage(lang.code)}
-                  className={`px-2.5 py-1 rounded-full text-xs font-medium transition-all ${
-                    language === lang.code
-                      ? "bg-indigo-500 text-white"
-                      : "text-gray-400 hover:text-white"
-                  }`}
-                >
-                  {lang.label}
-                </button>
-              ))}
+          <div className="flex items-center gap-1.5 sm:gap-3">
+            {/* Language Dropdown */}
+            <div ref={langRef} className="relative">
+              <button
+                onClick={() => { setLangDropdownOpen(!langDropdownOpen); setCurrDropdownOpen(false); }}
+                className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-white/5 hover:bg-white/10 transition text-xs sm:text-sm font-medium text-gray-300"
+              >
+                <span>{currentLang.code.toUpperCase()}</span>
+                <svg className={`w-3 sm:w-3.5 h-3 sm:h-3.5 transition-transform ${langDropdownOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {langDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-gray-900 border border-white/10 rounded-xl shadow-xl overflow-hidden min-w-[140px]">
+                  {languages.map((lang) => (
+                    <button
+                      key={lang.code}
+                      onClick={() => { setLanguage(lang.code); setLangDropdownOpen(false); }}
+                      className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm transition ${
+                        language === lang.code
+                          ? "bg-indigo-500/20 text-white"
+                          : "text-gray-400 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Theme Toggle - Desktop */}
-            <button
-              onClick={toggleTheme}
-              className="hidden sm:flex items-center justify-center w-9 h-9 rounded-full bg-white/5 hover:bg-white/10 transition"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? (
-                <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
+            {/* Currency Dropdown */}
+            <div ref={currRef} className="relative">
+              <button
+                onClick={() => { setCurrDropdownOpen(!currDropdownOpen); setLangDropdownOpen(false); }}
+                className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg bg-white/5 hover:bg-white/10 transition text-xs sm:text-sm font-medium text-gray-300"
+              >
+                <span className="text-sm sm:text-base">{currentCurr.symbol}</span>
+                <svg className={`w-3 sm:w-3.5 h-3 sm:h-3.5 transition-transform ${currDropdownOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              ) : (
-                <svg className="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                </svg>
+              </button>
+
+              {currDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 bg-gray-900 border border-white/10 rounded-xl shadow-xl overflow-hidden min-w-[120px]">
+                  {currencies.map((curr) => (
+                    <button
+                      key={curr.code}
+                      onClick={() => { setCurrency(curr.code); setCurrDropdownOpen(false); }}
+                      className={`w-full flex items-center gap-2 px-4 py-2.5 text-sm transition ${
+                        currency === curr.code
+                          ? "bg-indigo-500/20 text-white"
+                          : "text-gray-400 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      <span className="text-base w-5">{curr.symbol}</span>
+                      <span>{curr.label}</span>
+                    </button>
+                  ))}
+                </div>
               )}
-            </button>
+            </div>
 
             {/* Login Button */}
             <a
               href="https://web.1study.kz"
-              className="gradient-bg text-white px-4 sm:px-6 py-2.5 rounded-full font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25"
+              className="gradient-bg text-white px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-full text-sm sm:text-base font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25"
             >
               {t("nav.login")}
             </a>
@@ -141,50 +195,7 @@ export function Header() {
               >
                 {t("nav.faq")}
               </a>
-              <a
-                href="https://web.1study.kz"
-                className="text-gray-300 hover:text-white transition font-medium py-2"
-              >
-                {t("nav.login")}
-              </a>
-            </nav>
-
-            {/* Mobile Controls */}
-            <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-              {/* Language Switcher - Mobile */}
-              <div className="flex items-center bg-white/5 rounded-full p-1">
-                {languages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => setLanguage(lang.code)}
-                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${
-                      language === lang.code
-                        ? "bg-indigo-500 text-white"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    {lang.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Theme Toggle - Mobile */}
-              <button
-                onClick={toggleTheme}
-                className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 transition"
-                aria-label="Toggle theme"
-              >
-                {theme === "dark" ? (
-                  <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                  </svg>
-                ) : (
-                  <svg className="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                  </svg>
-                )}
-              </button>
-            </div>
+              </nav>
           </div>
         )}
       </div>

@@ -3,10 +3,13 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 export type Language = "ru" | "en" | "kz";
+export type Currency = "kzt" | "usd";
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  currency: Currency;
+  setCurrency: (curr: Currency) => void;
   t: (key: string) => string;
 }
 
@@ -100,8 +103,14 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.yearly": "Год",
     "pricing.discount": "-50%",
     "pricing.perMonth": "/мес",
+    "pricing.perMonthShort": "мес",
     "pricing.perQuarter": "/квартал",
     "pricing.perYear": "/год",
+    "pricing.save": "Экономия",
+    "pricing.billedMonthly": "Оплата ежемесячно",
+    "pricing.moreFeatures": "ещё возможностей",
+    "pricing.includedAlso": "Также включено",
+    "pricing.limit.storage": "Хранилище",
     "pricing.popular": "Популярный",
     "pricing.start": "Начать",
     "pricing.current": "Текущий",
@@ -112,16 +121,29 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.plan3.name": "Академия",
     "pricing.plan3.desc": "Для крупных школ",
     "pricing.feature.students": "учеников",
+    "pricing.feature.studentsPerMonth": "учеников/мес",
     "pricing.feature.courses": "курсов",
-    "pricing.feature.unlimitedStudents": "Безлимит учеников",
-    "pricing.feature.unlimitedCourses": "Безлимит курсов",
+    "pricing.feature.unlimitedStudents": "🔥 Безлимит учеников",
+    "pricing.feature.unlimitedCourses": "🔥 Безлимит курсов",
+    "pricing.feature.unlimitedStorage": "🔥 Безлимит ГБ",
     "pricing.feature.mobileApp": "Мобильное приложение",
     "pricing.feature.antiPiracy": "Антипиратство",
-    "pricing.feature.whatsapp": "WhatsApp уведомления",
-    "pricing.feature.analytics": "Аналитика",
-    "pricing.feature.priority": "Приоритетная поддержка",
-    "pricing.feature.manager": "Персональный менеджер",
-    "pricing.feature.api": "API доступ",
+    "pricing.feature.whatsappReg": "Регистрация через WhatsApp",
+    "pricing.feature.ownWhatsapp": "Свой WhatsApp",
+    "pricing.feature.certificates": "Сертификаты",
+    "pricing.feature.analytics": "Аналитика и отчёты",
+    "pricing.feature.courseBuilder": "Конструктор курсов",
+    "pricing.feature.hwTests": "ДЗ и тесты",
+    "pricing.feature.roles": "Роли (админы/кураторы)",
+    "pricing.feature.whatsappBroadcast": "WhatsApp рассылки",
+    "pricing.feature.rfm": "RFM-сегментация",
+    "pricing.feature.certDesign": "Дизайн сертификатов",
+    "pricing.feature.customDesign": "Собственный дизайн",
+    "pricing.feature.customPages": "Свои страницы материалов",
+    "pricing.feature.customDomain": "Свой домен",
+    "pricing.feature.customPayments": "Свои платёжки",
+    "pricing.feature.aiAssistant": "ИИ-ассистент",
+    "pricing.feature.aiBuilder": "ИИ-конструктор",
 
     // FAQ
     "faq.label": "Вопросы",
@@ -136,6 +158,8 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.4.a": "Да, 14 дней бесплатно на любом тарифе. Карта не требуется.",
     "faq.5.q": "Как работает WhatsApp интеграция?",
     "faq.5.a": "Ученик получает приглашение с вашего номера WhatsApp. Если отвечает — сообщение приходит вам. Это повышает открываемость до 95%.",
+    "faq.6.q": "Какой тариф мне подходит?",
+    "faq.6.a": "Старт — если вы только начинаете и у вас до 200 учеников в месяц. Школа — если вам нужен безлимит учеников и роли для команды. Академия — если хотите свой дизайн, домен, WhatsApp-рассылки и ИИ-инструменты. Начните со Старта — всегда можно перейти на старший тариф.",
 
     // CTA
     "cta.title": "Готовы запустить свою онлайн-школу?",
@@ -303,8 +327,14 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.yearly": "Year",
     "pricing.discount": "-50%",
     "pricing.perMonth": "/mo",
+    "pricing.perMonthShort": "mo",
     "pricing.perQuarter": "/quarter",
     "pricing.perYear": "/year",
+    "pricing.save": "Save",
+    "pricing.billedMonthly": "Billed monthly",
+    "pricing.moreFeatures": "more features",
+    "pricing.includedAlso": "Also included",
+    "pricing.limit.storage": "Storage",
     "pricing.popular": "Popular",
     "pricing.start": "Start",
     "pricing.current": "Current",
@@ -315,16 +345,29 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.plan3.name": "Academy",
     "pricing.plan3.desc": "For large schools",
     "pricing.feature.students": "students",
+    "pricing.feature.studentsPerMonth": "students/mo",
     "pricing.feature.courses": "courses",
-    "pricing.feature.unlimitedStudents": "Unlimited students",
-    "pricing.feature.unlimitedCourses": "Unlimited courses",
+    "pricing.feature.unlimitedStudents": "🔥 Unlimited students",
+    "pricing.feature.unlimitedCourses": "🔥 Unlimited courses",
+    "pricing.feature.unlimitedStorage": "🔥 Unlimited storage",
     "pricing.feature.mobileApp": "Mobile app",
     "pricing.feature.antiPiracy": "Anti-piracy",
-    "pricing.feature.whatsapp": "WhatsApp notifications",
-    "pricing.feature.analytics": "Analytics",
-    "pricing.feature.priority": "Priority support",
-    "pricing.feature.manager": "Personal manager",
-    "pricing.feature.api": "API access",
+    "pricing.feature.whatsappReg": "WhatsApp registration",
+    "pricing.feature.ownWhatsapp": "Own WhatsApp",
+    "pricing.feature.certificates": "Certificates",
+    "pricing.feature.analytics": "Analytics & reports",
+    "pricing.feature.courseBuilder": "Course builder",
+    "pricing.feature.hwTests": "Homework & tests",
+    "pricing.feature.roles": "Roles (admins/curators)",
+    "pricing.feature.whatsappBroadcast": "WhatsApp broadcasts",
+    "pricing.feature.rfm": "RFM segmentation",
+    "pricing.feature.certDesign": "Certificate design",
+    "pricing.feature.customDesign": "Custom design",
+    "pricing.feature.customPages": "Custom material pages",
+    "pricing.feature.customDomain": "Custom domain",
+    "pricing.feature.customPayments": "Custom payments",
+    "pricing.feature.aiAssistant": "AI assistant",
+    "pricing.feature.aiBuilder": "AI builder",
 
     // FAQ
     "faq.label": "Questions",
@@ -339,6 +382,8 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.4.a": "Yes, 14 days free on any plan. No card required.",
     "faq.5.q": "How does WhatsApp integration work?",
     "faq.5.a": "Student receives invitation from your WhatsApp number. If they reply — message comes to you. This increases open rate to 95%.",
+    "faq.6.q": "Which plan is right for me?",
+    "faq.6.a": "Start — if you're just beginning and have up to 200 students per month. School — if you need unlimited students and team roles. Academy — if you want custom design, domain, WhatsApp broadcasts and AI tools. Start with Start plan — you can always upgrade later.",
 
     // CTA
     "cta.title": "Ready to launch your online school?",
@@ -506,8 +551,14 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.yearly": "Жыл",
     "pricing.discount": "-50%",
     "pricing.perMonth": "/ай",
+    "pricing.perMonthShort": "ай",
     "pricing.perQuarter": "/тоқсан",
     "pricing.perYear": "/жыл",
+    "pricing.save": "Үнемдеу",
+    "pricing.billedMonthly": "Ай сайын төлем",
+    "pricing.moreFeatures": "тағы мүмкіндіктер",
+    "pricing.includedAlso": "Сонымен қатар кіреді",
+    "pricing.limit.storage": "Жады",
     "pricing.popular": "Танымал",
     "pricing.start": "Бастау",
     "pricing.current": "Ағымдағы",
@@ -518,16 +569,29 @@ const translations: Record<Language, Record<string, string>> = {
     "pricing.plan3.name": "Академия",
     "pricing.plan3.desc": "Ірі мектептер үшін",
     "pricing.feature.students": "оқушы",
+    "pricing.feature.studentsPerMonth": "оқушы/ай",
     "pricing.feature.courses": "курс",
-    "pricing.feature.unlimitedStudents": "Шексіз оқушылар",
-    "pricing.feature.unlimitedCourses": "Шексіз курстар",
+    "pricing.feature.unlimitedStudents": "🔥 Шексіз оқушылар",
+    "pricing.feature.unlimitedCourses": "🔥 Шексіз курстар",
+    "pricing.feature.unlimitedStorage": "🔥 Шексіз ГБ",
     "pricing.feature.mobileApp": "Мобильді қосымша",
     "pricing.feature.antiPiracy": "Қарақшылыққа қарсы",
-    "pricing.feature.whatsapp": "WhatsApp хабарландырулар",
-    "pricing.feature.analytics": "Аналитика",
-    "pricing.feature.priority": "Басымдықты қолдау",
-    "pricing.feature.manager": "Жеке менеджер",
-    "pricing.feature.api": "API қол жетімділік",
+    "pricing.feature.whatsappReg": "WhatsApp арқылы тіркелу",
+    "pricing.feature.ownWhatsapp": "Өз WhatsApp",
+    "pricing.feature.certificates": "Сертификаттар",
+    "pricing.feature.analytics": "Аналитика және есептер",
+    "pricing.feature.courseBuilder": "Курс конструкторы",
+    "pricing.feature.hwTests": "ҮТ және тесттер",
+    "pricing.feature.roles": "Рөлдер (админдер/кураторлар)",
+    "pricing.feature.whatsappBroadcast": "WhatsApp жіберулер",
+    "pricing.feature.rfm": "RFM-сегментация",
+    "pricing.feature.certDesign": "Сертификат дизайны",
+    "pricing.feature.customDesign": "Жеке дизайн",
+    "pricing.feature.customPages": "Жеке материал беттері",
+    "pricing.feature.customDomain": "Жеке домен",
+    "pricing.feature.customPayments": "Жеке төлем жүйелері",
+    "pricing.feature.aiAssistant": "ИИ-ассистент",
+    "pricing.feature.aiBuilder": "ИИ-конструктор",
 
     // FAQ
     "faq.label": "Сұрақтар",
@@ -542,6 +606,8 @@ const translations: Record<Language, Record<string, string>> = {
     "faq.4.a": "Иә, кез келген тарифте 14 күн тегін. Карта қажет емес.",
     "faq.5.q": "WhatsApp интеграциясы қалай жұмыс істейді?",
     "faq.5.a": "Оқушы сіздің WhatsApp нөміріңізден шақыру алады. Жауап берсе — хабарлама сізге келеді. Бұл ашылу деңгейін 95%-ға дейін арттырады.",
+    "faq.6.q": "Қай тариф маған сәйкес келеді?",
+    "faq.6.a": "Старт — жаңадан бастасаңыз және айына 200 оқушыға дейін болса. Мектеп — шексіз оқушылар және команда рөлдері қажет болса. Академия — жеке дизайн, домен, WhatsApp жіберулер және ИИ құралдары қажет болса. Старттан бастаңыз — кез келген уақытта жоғары тарифке көшуге болады.",
 
     // CTA
     "cta.title": "Онлайн мектебіңізді ашуға дайынсыз ба?",
@@ -626,13 +692,18 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>("ru");
+  const [currency, setCurrency] = useState<Currency>("kzt");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    const saved = localStorage.getItem("language") as Language | null;
-    if (saved && ["ru", "en", "kz"].includes(saved)) {
-      setLanguage(saved);
+    const savedLang = localStorage.getItem("language") as Language | null;
+    if (savedLang && ["ru", "en", "kz"].includes(savedLang)) {
+      setLanguage(savedLang);
+    }
+    const savedCurr = localStorage.getItem("currency") as Currency | null;
+    if (savedCurr && ["kzt", "usd"].includes(savedCurr)) {
+      setCurrency(savedCurr);
     }
   }, []);
 
@@ -642,12 +713,18 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, [language, mounted]);
 
+  useEffect(() => {
+    if (mounted) {
+      localStorage.setItem("currency", currency);
+    }
+  }, [currency, mounted]);
+
   const t = (key: string): string => {
     return translations[language][key] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, currency, setCurrency, t }}>
       {children}
     </LanguageContext.Provider>
   );
